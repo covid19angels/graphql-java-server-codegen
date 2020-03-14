@@ -1,9 +1,6 @@
 package com.kobylynskyi.graphql.codegen.model;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import lombok.Data;
 
@@ -39,6 +36,8 @@ public class MappingConfig implements Combinable<MappingConfig> {
     private String subscriptionReturnType;
     private Boolean generateEqualsAndHashCode;
     private Boolean generateToString;
+    private List<String> apiPackageImports = new ArrayList<>();
+    private List<String> modelPackageImports = new ArrayList<>();
 
 
     /**
@@ -81,5 +80,17 @@ public class MappingConfig implements Combinable<MappingConfig> {
         this.subscriptionReturnType = source.subscriptionReturnType  != null ? source.subscriptionReturnType : this.subscriptionReturnType;
         this.generateEqualsAndHashCode = source.generateEqualsAndHashCode != null ? source.generateEqualsAndHashCode : this.generateEqualsAndHashCode;
         this.generateToString = source.generateToString != null ? source.generateToString : this.generateToString;
+
+        if (this.apiPackageImports != null && source.apiPackageImports != null) {
+            this.apiPackageImports.addAll(source.apiPackageImports);
+        } else if (this.apiPackageImports == null) {
+            this.apiPackageImports = source.apiPackageImports;
+        }
+
+        if (this.modelPackageImports != null && source.modelPackageImports != null) {
+            this.modelPackageImports.addAll(source.modelPackageImports);
+        } else if (this.modelPackageImports == null) {
+            this.modelPackageImports = source.modelPackageImports;
+        }
     }
 }

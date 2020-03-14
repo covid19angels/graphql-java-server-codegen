@@ -1,14 +1,11 @@
 package com.kobylynskyi.graphql.codegen.model;
 
-import static java.util.Collections.singletonMap;
+import static java.util.Collections.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -67,6 +64,9 @@ class MappingConfigTest {
         assertEquals("ModelValidationAnnotation", mappingConfig.getModelValidationAnnotation());
         assertEquals("PackageName", mappingConfig.getPackageName());
         assertEquals("SubscriptionsReturnType", mappingConfig.getSubscriptionReturnType());
+
+        assertEquals(unmodifiableList(Arrays.asList("import1","import2")),mappingConfig.getApiPackageImports());
+        assertEquals(unmodifiableList(Arrays.asList("import3","import4")),mappingConfig.getModelPackageImports());
     }
 
     @Test
@@ -88,6 +88,9 @@ class MappingConfigTest {
         assertEquals("ModelValidationAnnotation2", mappingConfig.getModelValidationAnnotation());
         assertEquals("PackageName2", mappingConfig.getPackageName());
         assertEquals("SubscriptionsReturnType2", mappingConfig.getSubscriptionReturnType());
+
+        assertEquals(unmodifiableList(Arrays.asList("import1","import2","import11","import22")),mappingConfig.getApiPackageImports());
+        assertEquals(unmodifiableList(Arrays.asList("import3","import4","import33","import44")),mappingConfig.getModelPackageImports());
     }
 
     private static Map<String, String> hashMap(AbstractMap.SimpleEntry<String, String>... entries) {
@@ -109,6 +112,8 @@ class MappingConfigTest {
         config.setModelValidationAnnotation("ModelValidationAnnotation");
         config.setPackageName("PackageName");
         config.setSubscriptionReturnType("SubscriptionsReturnType");
+        config.setApiPackageImports(new ArrayList<>(){{add("import1");add("import2");}});
+        config.setModelPackageImports(new ArrayList<>(){{add("import3");add("import4");}});
         return config;
     }
 
@@ -126,6 +131,8 @@ class MappingConfigTest {
         config.setModelValidationAnnotation("ModelValidationAnnotation2");
         config.setPackageName("PackageName2");
         config.setSubscriptionReturnType("SubscriptionsReturnType2");
+        config.setApiPackageImports(new ArrayList<>(){{add("import11");add("import22");}});
+        config.setModelPackageImports(new ArrayList<>(){{add("import33");add("import44");}});
         return config;
     }
 

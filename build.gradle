@@ -3,12 +3,12 @@ plugins {
     id "idea"
     id "jacoco"
     id "java-library"
-    id "signing"
+//    id "signing"
     id "maven-publish"
 }
 
 version = "1.3.0"
-group = "io.github.kobylynskyi"
+group = "io.github.conanchen"
 
 repositories {
     mavenCentral()
@@ -73,26 +73,26 @@ publishing {
             pom {
                 name = "GraphQL Java CodeGen"
                 description = "Java Code Generator based on GraphQL schema"
-                url = "https://github.com/kobylynskyi/graphql-java-codegen"
+                url = "https://github.com/conanchen/graphql-java-codegen"
                 organization {
-                    name = "io.github.kobylynskyi"
-                    url = "https://github.com/kobylynskyi"
+                    name = "io.github.conanchen"
+                    url = "https://github.com/conanchen"
                 }
                 issueManagement {
                     system = "GitHub"
-                    url = "https://github.com/kobylynskyi/graphql-java-codegen/issues"
+                    url = "https://github.com/conanchen/graphql-java-codegen/issues"
                 }
                 licenses {
                     license {
                         name = "MIT License"
-                        url = "https://github.com/kobylynskyi/graphql-java-codegen/blob/master/LICENSE"
+                        url = "https://github.com/conanchen/graphql-java-codegen/blob/master/LICENSE"
                         distribution = "repo"
                     }
                 }
                 scm {
-                    url = "https://github.com/kobylynskyi/graphql-java-codegen"
-                    connection = "scm:git:git://github.com/kobylynskyi/graphql-java-codegen.git"
-                    developerConnection = "scm:git:ssh://git@github.com:kobylynskyi/graphql-java-codegen.git"
+                    url = "https://github.com/conanchen/graphql-java-codegen"
+                    connection = "scm:git:git://github.com/conanchen/graphql-java-codegen.git"
+                    developerConnection = "scm:git:ssh://git@github.com:conanchen/graphql-java-codegen.git"
                 }
                 developers {
                     developer {
@@ -120,6 +120,6 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.mavenJava
-}
+//signing {
+//    sign publishing.publications.mavenJava
+//}

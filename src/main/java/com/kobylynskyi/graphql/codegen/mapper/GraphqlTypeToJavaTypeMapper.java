@@ -10,6 +10,7 @@ import graphql.language.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Map GraphQL type to Java type
@@ -31,6 +32,7 @@ class GraphqlTypeToJavaTypeMapper {
         parameter.setName(MapperUtils.capitalizeIfRestricted(fieldDef.getName()));
         parameter.setType(getJavaType(mappingConfig, fieldDef.getType(), fieldDef.getName(), parentTypeName));
         parameter.setAnnotations(getAnnotations(mappingConfig, fieldDef.getType(), fieldDef.getName(), parentTypeName, false));
+        parameter.setDirectives(fieldDef.getDirectives().stream().map(directive -> directive.getName()).collect(Collectors.toList()));
         return parameter;
     }
 

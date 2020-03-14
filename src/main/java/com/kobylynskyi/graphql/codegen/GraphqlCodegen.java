@@ -103,7 +103,7 @@ public class GraphqlCodegen {
                     generateUnion((UnionTypeDefinition) definition);
             }
         }
-        System.out.println(String.format("Generated %d definitions in folder '%s'", document.getDefinitions().size(),
+        System.out.println(String.format("[KK] Generated %d definitions in folder '%s'", document.getDefinitions().size(),
                 outputDir.getAbsolutePath()));
     }
 
