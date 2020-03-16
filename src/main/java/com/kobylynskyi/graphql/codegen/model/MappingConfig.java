@@ -30,6 +30,7 @@ public class MappingConfig implements Combinable<MappingConfig> {
     private String packageName;
     private String apiPackageName;
     private String modelPackageName;
+    private String resolverPackageName;
     private String modelNamePrefix;
     private String modelNameSuffix;
     private String modelValidationAnnotation;
@@ -74,6 +75,7 @@ public class MappingConfig implements Combinable<MappingConfig> {
         this.packageName = source.packageName != null ? source.packageName : this.packageName;
         this.apiPackageName = source.apiPackageName != null ? source.apiPackageName : this.apiPackageName;
         this.modelPackageName = source.modelPackageName != null ? source.modelPackageName : this.modelPackageName;
+        this.resolverPackageName = source.resolverPackageName != null ? source.resolverPackageName : this.resolverPackageName;
         this.modelNamePrefix = source.modelNamePrefix != null ? source.modelNamePrefix : this.modelNamePrefix;
         this.modelNameSuffix = source.modelNameSuffix != null ? source.modelNameSuffix : this.modelNameSuffix;
         this.modelValidationAnnotation = source.modelValidationAnnotation != null ? source.modelValidationAnnotation : this.modelValidationAnnotation;

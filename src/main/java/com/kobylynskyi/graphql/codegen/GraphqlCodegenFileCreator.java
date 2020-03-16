@@ -29,6 +29,7 @@ class GraphqlCodegenFileCreator {
         if (!fileCreated) {
             throw new FileAlreadyExistsException("File already exists: " + javaSourceFile.getPath());
         }
+        System.out.println(String.format("javaSourceFile=%s",javaSourceFile.getAbsolutePath()));
         template.process(dataModel, new FileWriter(javaSourceFile));
     }
 

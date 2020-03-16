@@ -12,7 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Generator of:
@@ -103,8 +106,21 @@ public class GraphqlCodegen {
                     generateUnion((UnionTypeDefinition) definition);
             }
         }
+        generateResolverInterface(document.getDefinitions());
         System.out.println(String.format("[KK] Generated %d definitions in folder '%s'", document.getDefinitions().size(),
                 outputDir.getAbsolutePath()));
+    }
+
+    private void generateResolverInterface(List<Definition> definitions) throws IOException, TemplateException {
+       Stream<ObjectTypeDefinition> objectTypeDefinitions =  definitions.stream()
+                .filter(d -> d instanceof ObjectTypeDefinition )
+                .map(d->(ObjectTypeDefinition)d)
+                .filter(d->!d.getName().equals("Query"))
+                .filter(d->!d.getName().equals("Mutation"))
+                .filter(d->!d.getName().equals("Subscription"));
+        Map<String, Object> dataModel = ObjectTypeDefinitionsToResolverDataModelMapper.map(mappingConfig, objectTypeDefinitions);
+        GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.resolversTemplate, dataModel, outputDir);
+
     }
 
     private void generateUnion(UnionTypeDefinition definition) throws IOException, TemplateException {

@@ -1,5 +1,8 @@
 package com.kobylynskyi.graphql.codegen.model;
 
+import com.google.gson.Gson;
+import graphql.language.Directive;
+import graphql.language.StringValue;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -17,5 +20,22 @@ public class OperationDefinition {
     private String type;
     private List<String> annotations = new ArrayList<>();
     private List<ParameterDefinition> parameters = new ArrayList<>();
+    private List<Directive> directives = new ArrayList<>();
 
+    Gson gson = new Gson();
+
+    public Boolean noRelayConnectionDirective() {
+        return directives.stream()
+                .filter(s -> s.getName().equalsIgnoreCase("connection"))
+                .findFirst()
+                .isEmpty();
+    }
+    public String connectionFor(){
+        return directives.stream()
+                .filter(s->s.getName().equalsIgnoreCase("connection"))
+                .map(d->(StringValue)d.getArgument("for").getValue())
+                .findFirst()
+                .map(sv->sv.getValue())
+                .get();
+    }
 }

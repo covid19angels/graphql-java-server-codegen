@@ -11,6 +11,8 @@ schema {
 }
 
 type Query {
+    eventSearch(first: Int,offset: Int): EventConnection @connection(for: "Event")
+
     # Version of the application.
     version: String!
 
@@ -19,6 +21,7 @@ type Query {
 
     # Single event by ID.
     eventById(id: ID!): Event!
+
 }
 
 type Mutation {
@@ -42,6 +45,10 @@ type Event {
     createdDateTime: DateTime
     active: Boolean
     rating: Int
+
+    property(id:ID):[EventProperty]
+    propertiesSearch1(first: Int,offset: Int): EventPropertyConnection @connection(for: "EventProperty")
+    propertiesSearch2(first: Int,offset: Int): EventPropertyConnection @connection(for: "EventProperty")
 }
 
 # An event property have all possible types
@@ -52,6 +59,8 @@ type EventProperty {
     stringVal: String
     child: [EventProperty]
     parent: Event
+    childSearch1(first: Int,offset: Int): EventPropertyConnection @connection(for: "EventProperty")
+    childSearch2(first: Int,offset: Int): EventPropertyConnection @connection(for: "EventProperty")
 }
 
 # Custom DateTime scalar
