@@ -31,7 +31,7 @@ public class ObjectTypeDefinitionsToResolverDataModelMapper {
         ).collect(Collectors.toList());
 
         Map<String, Object> dataModel = new HashMap<>();
-        String packageName = MapperUtils.getResolverPackageName(mappingConfig);
+        String packageName = MapperUtils.getApiPackageName(mappingConfig);
         dataModel.put(PACKAGE, packageName);
         dataModel.put(IMPORTS, MapperUtils.getImports(mappingConfig, packageName));
         dataModel.put(CLASS_NAME, "Resolvers");

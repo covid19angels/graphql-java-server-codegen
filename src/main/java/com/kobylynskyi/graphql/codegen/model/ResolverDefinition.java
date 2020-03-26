@@ -19,8 +19,6 @@ import java.util.List;
 public class ResolverDefinition {
 
     private String name;
-    private List<OperationDefinition> operations = new ArrayList<>();
-
-    Gson gson = new Gson();
+    private List<OperationDefinition> operations ;
 
 }
