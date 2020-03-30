@@ -9,7 +9,8 @@ import ${import}.*;
 public interface ${className} <#if implements?has_content>implements <#list implements as interface>${interface}<#if interface_has_next>, </#if></#list></#if>{
 
 <#list fields as field>
+    <#if field.noRelayConnectionDirective()>
     ${field.type} get${field.name?cap_first}();
-
+    </#if>
 </#list>
 }

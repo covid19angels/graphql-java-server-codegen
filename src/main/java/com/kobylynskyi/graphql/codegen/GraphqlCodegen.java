@@ -118,7 +118,13 @@ public class GraphqlCodegen {
                 .filter(d->!d.getName().equals("Query"))
                 .filter(d->!d.getName().equals("Mutation"))
                 .filter(d->!d.getName().equals("Subscription"));
-        Map<String, Object> dataModel = ObjectTypeDefinitionsToResolverDataModelMapper.map(mappingConfig, objectTypeDefinitions);
+       Stream<InterfaceTypeDefinition> interfaceTypeDefinitions =  definitions.stream()
+                .filter(d -> d instanceof InterfaceTypeDefinition )
+                .map(d->(InterfaceTypeDefinition)d)
+                .filter(d->!d.getName().equals("Query"))
+                .filter(d->!d.getName().equals("Mutation"))
+                .filter(d->!d.getName().equals("Subscription"));
+        Map<String, Object> dataModel = ObjectTypeDefinitionsToResolverDataModelMapper.map(mappingConfig, objectTypeDefinitions,interfaceTypeDefinitions);
         GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.resolversTemplate, dataModel, outputDir);
 
     }
