@@ -1,3 +1,6 @@
+# graphql-java-server-codegen
+根据graphql endpoint、SDL、AST.json、@Graphql注解的java类生成服务端POJO、Resovers、api等辅助java类
+
 # GraphQL Codegen #
 
 [![CircleCI](https://img.shields.io/circleci/build/github/kobylynskyi/graphql-java-codegen)](https://circleci.com/gh/kobylynskyi/graphql-java-codegen/tree/master)
