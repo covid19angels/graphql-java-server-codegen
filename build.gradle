@@ -8,7 +8,7 @@ plugins {
 }
 
 version = "1.3.0"
-group = "io.github.conanchen"
+group = "com.contentbig"
 
 repositories {
     mavenCentral()
@@ -66,35 +66,34 @@ artifacts {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = "my-library"
             from components.java
             artifact sourcesJar
             artifact javadocJar
-            artifactId "graphql-java-codegen"
+            artifactId "graphql-java-server-codegen"
 
             pom {
                 name = "GraphQL Java CodeGen"
                 description = "Java Code Generator based on GraphQL schema"
-                url = "https://github.com/conanchen/graphql-java-codegen"
+                url = "https://github.com/covid19angels/graphql-java-server-codegen"
                 organization {
-                    name = "io.github.conanchen"
+                    name = "com.contentbig"
                     url = "https://github.com/conanchen"
                 }
                 issueManagement {
                     system = "GitHub"
-                    url = "https://github.com/conanchen/graphql-java-codegen/issues"
+                    url = "https://github.com/covid19angels/graphql-java-server-codegen/issues"
                 }
                 licenses {
                     license {
                         name = "MIT License"
-                        url = "https://github.com/conanchen/graphql-java-codegen/blob/master/LICENSE"
+                        url = "https://github.com/covid19angels/graphql-java-server-codegen/blob/master/LICENSE"
                         distribution = "repo"
                     }
                 }
                 scm {
-                    url = "https://github.com/conanchen/graphql-java-codegen"
-                    connection = "scm:git:git://github.com/conanchen/graphql-java-codegen.git"
-                    developerConnection = "scm:git:ssh://git@github.com:conanchen/graphql-java-codegen.git"
+                    url = "https://github.com/covid19angels/graphql-java-server-codegen"
+                    connection = "scm:git:git://github.com/covid19angels/graphql-java-server-codegen.git"
+                    developerConnection = "scm:git:ssh://git@github.com:conanchen/graphql-java-server-codegen.git"
                 }
                 developers {
                     developer {
