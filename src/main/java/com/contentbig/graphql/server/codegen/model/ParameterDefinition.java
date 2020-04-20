@@ -20,10 +20,14 @@ public class ParameterDefinition {
 
     public Boolean noRelayConnectionDirective() {
 
-        return directives.stream()
-                .filter(s -> s.equalsIgnoreCase("connection"))
-                .findFirst()
-                .isEmpty();
+     if(directives.stream()
+             .filter(s -> s.equalsIgnoreCase("connection"))
+             .findFirst()==null)
+     {
+         return true;
+     }
+
+     return false;
 
     }
 

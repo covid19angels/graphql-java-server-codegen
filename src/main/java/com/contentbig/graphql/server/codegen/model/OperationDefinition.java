@@ -25,10 +25,17 @@ public class OperationDefinition {
     Gson gson = new Gson();
 
     public Boolean noRelayConnectionDirective() {
-        return directives.stream()
+
+
+        if(directives.stream()
                 .filter(s -> s.getName().equalsIgnoreCase("connection"))
-                .findFirst()
-                .isEmpty();
+                .findFirst() ==null)
+        {
+            return true;
+        }
+
+        return false;
+
     }
     public String connectionFor(){
         return directives.stream()
