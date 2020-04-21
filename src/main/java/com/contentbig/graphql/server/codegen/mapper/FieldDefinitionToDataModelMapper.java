@@ -54,6 +54,7 @@ public class FieldDefinitionToDataModelMapper {
         operation.setAnnotations(GraphqlTypeToJavaTypeMapper.getAnnotations(mappingConfig, fieldDef.getType(), fieldDef.getName(), parentTypeName));
         operation.setParameters(InputValueDefinitionToParameterMapper.map(mappingConfig, fieldDef.getInputValueDefinitions(), fieldDef.getName()));
         operation.setDirectives(fieldDef.getDirectives());
+        operation.computeConnectionFor();
         return operation;
     }
 

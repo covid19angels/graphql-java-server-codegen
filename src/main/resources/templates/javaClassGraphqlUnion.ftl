@@ -1,3 +1,4 @@
+// generated with template javaClassGraphqlUnion.ftl
 <#if package?has_content>
 package ${package};
 

@@ -136,15 +136,13 @@ public class GraphqlCodegen {
     }
 
     private void generateOperation(ObjectTypeDefinition definition) throws IOException, TemplateException {
-        if (Boolean.TRUE.equals(mappingConfig.getGenerateApis())) {
-            for (FieldDefinition fieldDef : definition.getFieldDefinitions()) {
-                Map<String, Object> dataModel = FieldDefinitionToDataModelMapper.map(mappingConfig, fieldDef, definition.getName());
-                GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
-            }
+//            for (FieldDefinition fieldDef : definition.getFieldDefinitions()) {
+//                Map<String, Object> dataModel = FieldDefinitionToDataModelMapper.map(mappingConfig, fieldDef, definition.getName());
+//                GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
+//            }
             // We need to generate a root object to workaround https://github.com/facebook/relay/issues/112
             Map<String, Object> dataModel = ObjectDefinitionToDataModelMapper.map(mappingConfig, definition);
             GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
-        }
     }
 
     private void generateType(ObjectTypeDefinition definition, Document document) throws IOException, TemplateException {

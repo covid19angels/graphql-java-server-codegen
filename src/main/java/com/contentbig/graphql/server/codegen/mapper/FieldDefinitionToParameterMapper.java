@@ -31,6 +31,7 @@ public class FieldDefinitionToParameterMapper {
         }
         return fieldDefinitions.stream()
                 .map(fieldDefinition -> GraphqlTypeToJavaTypeMapper.map(mappingConfig, fieldDefinition, parentTypeName))
+                .filter(pd->!pd.getDirectives().contains("connection"))
                 .collect(Collectors.toList());
     }
 

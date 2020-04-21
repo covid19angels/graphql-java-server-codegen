@@ -1,3 +1,5 @@
+// generated with template javaClassGraphqlType.ftl
+
 <#if package?has_content>
 package ${package};
 
@@ -15,9 +17,13 @@ import lombok.NonNull;
 public class ${className} <#if implements?has_content>implements <#list implements as interface>${interface}<#if interface_has_next>, </#if></#list></#if>{
 
 <#list fields as field>
-    <#if field.noRelayConnectionDirective()><#list field.annotations as annotation>
-    @${annotation}</#list>
-    private ${field.type} ${field.name};
+    <#if field.connectionFor?has_content>
+        // KK1 field.connectionFor=${field.connectionFor}
+    <#else>
+        <#list field.annotations as annotation>
+        @${annotation}
+        </#list>
+        private ${field.type} ${field.name};
     </#if>
 </#list>
 
@@ -25,10 +31,13 @@ public class ${className} <#if implements?has_content>implements <#list implemen
     }
 
 <#if fields?has_content>
-    public ${className}(<#list fields as field><#if field.noRelayConnectionDirective()><#if field?is_first><#else>, </#if> ${field.type} ${field.name}</#if></#list>) {
-<#list fields as field><#if field.noRelayConnectionDirective()>
+    public ${className}(<#list fields as field><#if field.connectionFor?has_content><#else><#if field?is_first><#else>, </#if> ${field.type} ${field.name}</#if></#list>) {
+<#list fields as field>
+    <#if field.connectionFor?has_content>
+    <#else>
         this.${field.name} = ${field.name};
-</#if></#list>
+    </#if>
+</#list>
     }
 </#if>
 

@@ -7,6 +7,8 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Freemarker-understandable format of operation (Query/Mutation/Subscription)
@@ -22,27 +24,17 @@ public class OperationDefinition {
     private List<ParameterDefinition> parameters = new ArrayList<>();
     private List<Directive> directives = new ArrayList<>();
 
-    Gson gson = new Gson();
+    private String connectionFor;
 
-    public Boolean noRelayConnectionDirective() {
-
-
-        if(directives.stream()
+    public void computeConnectionFor() {
+        directives.stream()
                 .filter(s -> s.getName().equalsIgnoreCase("connection"))
-                .findFirst() ==null)
-        {
-            return true;
-        }
-
-        return false;
-
-    }
-    public String connectionFor(){
-        return directives.stream()
-                .filter(s->s.getName().equalsIgnoreCase("connection"))
-                .map(d->(StringValue)d.getArgument("for").getValue())
+                .map(d -> (StringValue) d.getArgument("for").getValue())
                 .findFirst()
-                .map(sv->sv.getValue())
-                .get();
+                .ifPresent(stringValue -> {
+                    connectionFor = stringValue.getValue();
+                });
+
+        System.out.println(String.format("OperationDefinition.name=[%s], type=[%s] connectionFor=%s",name,type,connectionFor));
     }
 }

@@ -47,7 +47,12 @@ public class TypeDefinitionToDataModelMapper {
         interfaces.stream()
                 .map(i -> FieldDefinitionToParameterMapper.map(mappingConfig, i.getFieldDefinitions(), i.getName()))
                 .forEach(allParameters::addAll);
-        dataModel.put(FIELDS, allParameters);
+        allParameters.iterator().forEachRemaining(pd -> {
+            System.out.print(String.format("pd.name=[%s], type=[%s]",pd.getName(),pd.getType()));
+            pd.getDirectives().iterator().forEachRemaining(s->System.out.print(",dir="+s));
+            System.out.println("");
+        });
+        dataModel.put(FIELDS, allParameters.stream().filter(pd->!pd.getDirectives().contains("connection")).collect(Collectors.toSet()));
         dataModel.put(EQUALS_AND_HASH_CODE, mappingConfig.getGenerateEqualsAndHashCode());
         dataModel.put(TO_STRING, mappingConfig.getGenerateToString());
 
