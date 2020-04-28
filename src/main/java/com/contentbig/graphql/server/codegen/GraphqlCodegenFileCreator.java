@@ -58,11 +58,6 @@ class GraphqlCodegenFileCreator {
         targetDir = new File(outputDir, packageName.toString().replace(".", File.separator));
         Utils.deleteDir(targetDir);
 
-        // resolvers package folder
-        packageName = mappingConfig.getResolverPackageName();
-        targetDir = new File(outputDir, packageName.toString().replace(".", File.separator));
-        Utils.deleteDir(targetDir);
-
     }
 
     private static File getFileTargetDirectory(Map<String, Object> dataModel, File outputDir) throws IOException {

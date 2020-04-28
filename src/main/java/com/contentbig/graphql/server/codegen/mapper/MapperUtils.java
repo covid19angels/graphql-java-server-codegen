@@ -131,20 +131,6 @@ public class MapperUtils {
     }
 
     /**
-     * Get java package name for resolver class.
-     *
-     * @param mappingConfig Global mapping configuration
-     * @return model package name if present. Generic package name otherwise
-     */
-    static String getResolverPackageName(MappingConfig mappingConfig) {
-        if (!Utils.isBlank(mappingConfig.getResolverPackageName())) {
-            return mappingConfig.getResolverPackageName();
-        } else {
-            return mappingConfig.getPackageName();
-        }
-    }
-
-    /**
      * Returns imports required for a generated class:
      * - model package name
      * - api package name

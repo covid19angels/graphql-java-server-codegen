@@ -59,9 +59,6 @@ public class GraphqlCodegen {
         if (mappingConfig.getGenerateToString() == null) {
             mappingConfig.setGenerateToString(DefaultMappingConfigValues.DEFAULT_TO_STRING);
         }
-        if (mappingConfig.getGenerateApis() == null) {
-            mappingConfig.setGenerateApis(DefaultMappingConfigValues.DEFAULT_GENERATE_APIS);
-        }
     }
 
 
