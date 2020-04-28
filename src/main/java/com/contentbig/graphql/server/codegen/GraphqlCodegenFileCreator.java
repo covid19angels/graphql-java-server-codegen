@@ -1,6 +1,7 @@
 package com.contentbig.graphql.server.codegen;
 
 import com.contentbig.graphql.server.codegen.model.DataModelFields;
+import com.contentbig.graphql.server.codegen.model.MappingConfig;
 import com.contentbig.graphql.server.codegen.utils.Utils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -33,9 +34,35 @@ class GraphqlCodegenFileCreator {
         template.process(dataModel, new FileWriter(javaSourceFile));
     }
 
-    static void prepareOutputDir(File outputDir) throws IOException {
-        Utils.deleteDir(outputDir);
+    /**
+     * Prepare outputDir and api/model/resolver folder under outputDir
+     *
+     * Don't delete outputDir as it may be shared in multiple GraphqlCodegenTask
+     *
+     * @param outputDir
+     * @param mappingConfig
+     * @throws IOException
+     */
+    static void prepareOutputDir(File outputDir, MappingConfig mappingConfig) throws IOException {
+        // Don't delete outputDir as it will be shared with multiple GraphqlCodegenTask
+        // Utils.deleteDir(outputDir);
         Utils.createDirIfAbsent(outputDir);
+
+        // api package folder
+        String packageName = mappingConfig.getApiPackageName();
+        File  targetDir = new File(outputDir, packageName.toString().replace(".", File.separator));
+        Utils.deleteDir(targetDir);
+
+        // model package folder
+        packageName = mappingConfig.getModelPackageName();
+        targetDir = new File(outputDir, packageName.toString().replace(".", File.separator));
+        Utils.deleteDir(targetDir);
+
+        // resolvers package folder
+        packageName = mappingConfig.getResolverPackageName();
+        targetDir = new File(outputDir, packageName.toString().replace(".", File.separator));
+        Utils.deleteDir(targetDir);
+
     }
 
     private static File getFileTargetDirectory(Map<String, Object> dataModel, File outputDir) throws IOException {

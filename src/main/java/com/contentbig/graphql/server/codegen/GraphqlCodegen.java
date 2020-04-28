@@ -66,7 +66,8 @@ public class GraphqlCodegen {
 
 
     public void generate() throws Exception {
-        GraphqlCodegenFileCreator.prepareOutputDir(outputDir);
+        GraphqlCodegenFileCreator.prepareOutputDir(outputDir,mappingConfig);
+
         for (String schema : schemas) {
             long startTime = System.currentTimeMillis();
             Document document = GraphqlDocumentParser.getDocument(schema);
