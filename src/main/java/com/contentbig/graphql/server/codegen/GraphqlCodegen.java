@@ -8,9 +8,12 @@ import freemarker.template.TemplateException;
 import graphql.language.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -29,6 +32,7 @@ import java.util.stream.Stream;
  */
 @Getter
 @Setter
+@Slf4j
 public class GraphqlCodegen {
 
     private List<String> schemas;
@@ -72,6 +76,17 @@ public class GraphqlCodegen {
             processDocument(document);
             System.out.println(String.format("Finished processing schema '%s' in %d ms", schema, System.currentTimeMillis() - startTime));
         }
+        genResolvers(schemas);
+    }
+
+    private void genResolvers(List<String> schemas) throws IOException, TemplateException {
+        List<Definition> definitions = new ArrayList<>();
+        for (String schema : schemas) {
+            Document document = GraphqlDocumentParser.getDocument(schema);
+            addScalarsToCustomMappingConfig(document);
+            definitions.addAll(document.getDefinitions());
+        }
+        generateResolverInterface(definitions);
     }
 
     private void processDocument(Document document) throws IOException, TemplateException {
@@ -102,9 +117,8 @@ public class GraphqlCodegen {
                     generateUnion((UnionTypeDefinition) definition);
             }
         }
-        generateResolverInterface(document.getDefinitions());
-        System.out.println(String.format("[KK] Generated %d definitions in folder '%s'", document.getDefinitions().size(),
-                outputDir.getAbsolutePath()));
+        log.info("[KK] Generated {} definitions in folder {}", document.getDefinitions().size(),
+                outputDir.getAbsolutePath());
     }
 
     private void generateResolverInterface(List<Definition> definitions) throws IOException, TemplateException {
