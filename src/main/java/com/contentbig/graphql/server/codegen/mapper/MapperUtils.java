@@ -144,10 +144,7 @@ public class MapperUtils {
      */
     static Set<String> getImports(MappingConfig mappingConfig, String packageName) {
         Set<String> imports = new HashSet<>();
-        String modelPackageName = mappingConfig.getModelPackageName();
-        if (!Utils.isBlank(modelPackageName) && !modelPackageName.equals(packageName)) {
-            imports.add(modelPackageName);
-        }
+
         String apiPackageName = mappingConfig.getApiPackageName();
         if (!Utils.isBlank(apiPackageName) && !apiPackageName.equals(packageName)) {
             imports.add(apiPackageName);
@@ -156,7 +153,6 @@ public class MapperUtils {
         if (!Utils.isBlank(genericPackageName) && !genericPackageName.equals(packageName)) {
             imports.add(genericPackageName);
         }
-        imports.add("java.util");
         imports.addAll(mappingConfig.getApiPackageImports());
         imports.addAll(mappingConfig.getModelPackageImports());
         return imports;
