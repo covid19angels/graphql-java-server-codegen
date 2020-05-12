@@ -118,10 +118,10 @@ publishing {
     }
     repositories {
         maven {
-            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            url "https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/"
             credentials {
-                username sonatypeUsername
-                password sonatypePassword
+                username System.getenv("ALIYUN_MAVEN_USERNAME")
+                password System.getenv("ALIYUN_MAVEN_PASSWORD")
             }
         }
     }
