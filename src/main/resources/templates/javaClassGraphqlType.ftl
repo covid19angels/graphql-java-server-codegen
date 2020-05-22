@@ -9,9 +9,11 @@ import ${import}.*;
 </#list>
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 
 @Data
+@Accessors(chain = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
