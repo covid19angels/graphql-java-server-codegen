@@ -21,6 +21,9 @@ import lombok.experimental.Accessors;
 @ToString
 public class ${className} <#if implements?has_content>implements <#list implements as interface>${interface}<#if interface_has_next>, </#if></#list></#if>{
 
+<#if implements?has_content && implements?seq_contains("NodeGQO")>
+    private String graphQlTypeName;
+</#if>
 <#list fields as field>
     <#list field.annotations as annotation>
     @${annotation}
