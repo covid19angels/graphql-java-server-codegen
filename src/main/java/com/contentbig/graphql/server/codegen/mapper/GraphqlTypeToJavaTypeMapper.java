@@ -159,13 +159,13 @@ class GraphqlTypeToJavaTypeMapper {
     }
 
     /**
-     * Wrap java type into collection. E.g.: "String" becomes "Collection<String"
+     * Wrap java type into collection. E.g.: "String" becomes "List<String"
      *
-     * @param type Anything that will be wrapped into Collection<>
-     * @return String wrapped into Collection<>
+     * @param type Anything that will be wrapped into List<>
+     * @return String wrapped into List<>
      */
     private static String wrapIntoJavaCollection(String type) {
-        return String.format("Collection<%s>", type);
+        return String.format("List<%s>", type);
     }
 
     /**
