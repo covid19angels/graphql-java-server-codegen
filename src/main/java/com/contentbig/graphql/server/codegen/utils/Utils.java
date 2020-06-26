@@ -23,11 +23,19 @@ public final class Utils {
      * @param typeDef type definition name
      * @return {@code true} if the given type definition is GraphQL operation
      */
-    public static boolean isGraphqlOperation(String typeDef) {
+    public static boolean isGraphqlQueryOperation(String typeDef) {
         String typeDefNormalized = typeDef.toUpperCase();
-        return typeDefNormalized.equals(OperationDefinition.Operation.QUERY.name()) ||
-                typeDefNormalized.equals(OperationDefinition.Operation.MUTATION.name()) ||
-                typeDefNormalized.equals(OperationDefinition.Operation.SUBSCRIPTION.name());
+        return typeDefNormalized.equals(OperationDefinition.Operation.QUERY.name());
+    }
+
+    public static boolean isGraphqlMutationOperation(String typeDef) {
+        String typeDefNormalized = typeDef.toUpperCase();
+        return typeDefNormalized.equals(OperationDefinition.Operation.MUTATION.name());
+    }
+
+    public static boolean isGraphqlSubscriptionOperation(String typeDef) {
+        String typeDefNormalized = typeDef.toUpperCase();
+        return typeDefNormalized.equals(OperationDefinition.Operation.SUBSCRIPTION.name());
     }
 
     /**

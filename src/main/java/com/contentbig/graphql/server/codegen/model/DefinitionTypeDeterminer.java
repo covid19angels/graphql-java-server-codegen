@@ -9,8 +9,12 @@ public class DefinitionTypeDeterminer {
     public static GraphqlDefinitionType determine(@NonNull Definition definition) {
         if (definition instanceof ObjectTypeDefinition) {
             ObjectTypeDefinition typeDef = (ObjectTypeDefinition) definition;
-            if (Utils.isGraphqlOperation(typeDef.getName())) {
-                return GraphqlDefinitionType.OPERATION;
+            if (Utils.isGraphqlQueryOperation(typeDef.getName())) {
+                return GraphqlDefinitionType.QUERYOPERATION;
+            } else if (Utils.isGraphqlMutationOperation(typeDef.getName())) {
+                return GraphqlDefinitionType.MUTATIONOPERATION;
+            } else if (Utils.isGraphqlSubscriptionOperation(typeDef.getName())) {
+                return GraphqlDefinitionType.SUBSCRIPTIONOPERATION;
             } else {
                 return GraphqlDefinitionType.TYPE;
             }

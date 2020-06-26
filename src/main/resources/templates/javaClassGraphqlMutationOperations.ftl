@@ -1,4 +1,4 @@
-// generated with template javaClassGraphqlOperations.ftl
+// generated with template javaClassGraphqlMutationOperations.ftl
 
 <#if package?has_content>
 package ${package};
@@ -11,7 +11,7 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.relay.Connection;
 
 public interface ${className} {
-// KK
+// KKMutation
 <#list operations as operation>
 <#if operation.connectionFor?has_content>
     public Connection<${operation.connectionFor}GQO> ${operation.name}(<#list operation.parameters as param>${param.type} ${param.name}<#if param_has_next>, </#if></#list>, DataFetchingEnvironment env);

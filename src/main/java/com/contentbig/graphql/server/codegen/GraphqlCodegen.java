@@ -98,8 +98,14 @@ public class GraphqlCodegen {
                 continue;
             }
             switch (definitionType) {
-                case OPERATION:
-                    generateOperation((ObjectTypeDefinition) definition);
+                case QUERYOPERATION:
+                    generateQueryOperation((ObjectTypeDefinition) definition);
+                    break;
+                case MUTATIONOPERATION:
+                    generateMutationOperation((ObjectTypeDefinition) definition);
+                    break;
+                case SUBSCRIPTIONOPERATION:
+                    generateSubscriptionOperation((ObjectTypeDefinition) definition);
                     break;
                 case TYPE:
                     generateType((ObjectTypeDefinition) definition, document);
@@ -125,12 +131,12 @@ public class GraphqlCodegen {
        Stream<ObjectTypeDefinition> objectTypeDefinitions =  definitions.stream()
                 .filter(d -> d instanceof ObjectTypeDefinition )
                 .map(d->(ObjectTypeDefinition)d)
-               .filter(d-> !Utils.isGraphqlOperation(d.getName()));
+               .filter(d-> !Utils.isGraphqlQueryOperation(d.getName()) && !Utils.isGraphqlMutationOperation(d.getName()) && !Utils.isGraphqlSubscriptionOperation(d.getName()));
 
        Stream<InterfaceTypeDefinition> interfaceTypeDefinitions =  definitions.stream()
                 .filter(d -> d instanceof InterfaceTypeDefinition )
                 .map(d->(InterfaceTypeDefinition)d)
-                .filter(d-> !Utils.isGraphqlOperation(d.getName()));
+               .filter(d-> !Utils.isGraphqlQueryOperation(d.getName()) && !Utils.isGraphqlMutationOperation(d.getName()) && !Utils.isGraphqlSubscriptionOperation(d.getName()));
 
         Map<String, Object> dataModel = ObjectTypeDefinitionsToResolverDataModelMapper.map(mappingConfig, objectTypeDefinitions,interfaceTypeDefinitions);
         GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.resolversTemplate, dataModel, outputDir);
@@ -147,14 +153,34 @@ public class GraphqlCodegen {
         GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.interfaceTemplate, dataModel, outputDir);
     }
 
-    private void generateOperation(ObjectTypeDefinition definition) throws IOException, TemplateException {
+    private void generateQueryOperation(ObjectTypeDefinition definition) throws IOException, TemplateException {
 //            for (FieldDefinition fieldDef : definition.getFieldDefinitions()) {
 //                Map<String, Object> dataModel = FieldDefinitionToDataModelMapper.map(mappingConfig, fieldDef, definition.getName());
 //                GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
 //            }
             // We need to generate a root object to workaround https://github.com/facebook/relay/issues/112
             Map<String, Object> dataModel = ObjectDefinitionToDataModelMapper.map(mappingConfig, definition);
-            GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
+            GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.queryOperationsTemplate, dataModel, outputDir);
+    }
+
+    private void generateMutationOperation(ObjectTypeDefinition definition) throws IOException, TemplateException {
+//            for (FieldDefinition fieldDef : definition.getFieldDefinitions()) {
+//                Map<String, Object> dataModel = FieldDefinitionToDataModelMapper.map(mappingConfig, fieldDef, definition.getName());
+//                GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
+//            }
+            // We need to generate a root object to workaround https://github.com/facebook/relay/issues/112
+            Map<String, Object> dataModel = ObjectDefinitionToDataModelMapper.map(mappingConfig, definition);
+            GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.mutationOperationsTemplate, dataModel, outputDir);
+    }
+
+    private void generateSubscriptionOperation(ObjectTypeDefinition definition) throws IOException, TemplateException {
+//            for (FieldDefinition fieldDef : definition.getFieldDefinitions()) {
+//                Map<String, Object> dataModel = FieldDefinitionToDataModelMapper.map(mappingConfig, fieldDef, definition.getName());
+//                GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.operationsTemplate, dataModel, outputDir);
+//            }
+            // We need to generate a root object to workaround https://github.com/facebook/relay/issues/112
+            Map<String, Object> dataModel = ObjectDefinitionToDataModelMapper.map(mappingConfig, definition);
+            GraphqlCodegenFileCreator.generateFile(FreeMarkerTemplatesRegistry.subscriptionOperationsTemplate, dataModel, outputDir);
     }
 
     private void generateType(ObjectTypeDefinition definition, Document document) throws IOException, TemplateException {
