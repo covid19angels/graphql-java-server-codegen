@@ -1,4 +1,5 @@
 out
+bin
 build
 .idea
 .gradle
@@ -6,3 +7,6 @@ build
 modules.xml
 .idea/misc.xml
 *.ipr
+.classpath
+.project
+.settings

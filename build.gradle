@@ -78,8 +78,8 @@ publishing {
             artifactId "graphql-java-server-codegen"
 
             pom {
-                name = "GraphQL Java CodeGen"
-                description = "Java Code Generator based on GraphQL schema"
+                name = "GraphQL Java Server CodeGen"
+                description = "Java Code Server Generator based on GraphQL schema"
                 url = "https://github.com/covid19angels/graphql-java-server-codegen"
                 organization {
                     name = "com.contentbig"
